@@ -94,7 +94,7 @@ export const fuelData = [
 export const columns = [
   {
     title: '项目类型',
-    dataIndex: 'type',
+    dataIndex: 'ff_type',
   }, {
     title: '项目名称',
     dataIndex: 'name',
@@ -110,9 +110,6 @@ export const columns = [
   }, {
     title: '热量数据',
     dataIndex: 'calories',
-  }, {
-    title: '备注',
-    dataIndex: 'remarks',
   }, {
     title: '操作',
     dataIndex: 'operation'

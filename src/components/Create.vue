@@ -1,123 +1,135 @@
 <template>
-    <a-form :form="form" @finish="handleSubmit" layout="vertical" class="custom-form">
-        <a-form-item label="Name" name="name" :rules="rules.name">
-            <a-input v-model:value="itemName" />
-        </a-form-item>
-        <a-form-item label="Type" name="type" :rules="rules.type">
-            <a-input v-model:value="itemType" />
-        </a-form-item>
-        <a-form-item label="Time" name="time" :rules="rules.time">
-            <a-input v-model:value="itemTime" />
-        </a-form-item>
-        <a-form-item label="Content" name="content" :rules="rules.content">
-            <a-input v-model:value="itemContent" />
-        </a-form-item>
-        <a-form-item label="Fuel Variety" name="fuel_variety" :rules="rules.fuel_variety">
-            <a-input v-model:value="itemFuelVariety" />
-        </a-form-item>
-        <a-form-item label="Calories" name="calories" :rules="rules.calories">
-            <a-input v-model:value="itemCalories" />
-        </a-form-item>
-        <a-form-item label="Remarks" name="remarks">
-            <a-input v-model:value="itemRemarks" />
-        </a-form-item>
-        <a-form-item>
-            <a-button type="primary" html-type="submit">Create Item</a-button>
-        </a-form-item>
-    </a-form>
+  <a-tooltip title="回到个人活动清单页面" color="green">
+    <home-outlined @click="backToList" class="back"/>
+  </a-tooltip>
+  <h2>记录一下今天的健康生活吧～</h2>
+  <a-form ref="formRef" :model="formState" :rules="rules" :label-col="labelCol" :wrapper-col="wrapperCol">
+    <a-form-item label="活动类型" name="ff_type">
+      <a-select v-model:value="formState.ff_type" placeholder="please select fit or fuel type">
+        <a-select-option value="sport">运动</a-select-option>
+        <a-select-option value="diet">饮食</a-select-option>
+      </a-select>
+    </a-form-item>
+    <a-form-item ref="name" label="活动名称" name="name">
+      <a-input v-model:value="formState.name" />
+    </a-form-item>
+    <a-form-item label="活动时间" required name="time">
+      <a-date-picker v-model:value="formState.time" show-time type="date" placeholder="Pick a date"
+        style="width: 100%" />
+    </a-form-item>
+    <a-form-item label="热量类型" name="fuel_variety">
+      <a-radio-group v-model:value="formState.fuel_variety">
+        <a-radio value="Expenditure">消耗</a-radio>
+        <a-radio value="Intake">吸收</a-radio>
+      </a-radio-group>
+    </a-form-item>
+    <a-form-item label="内容" name="content">
+      <a-textarea v-model:value="formState.content" />
+    </a-form-item>
+    <a-form-item label="热量值" name="calories">
+      <a-input v-model:value="formState.calories" />
+    </a-form-item>
+    <a-form-item :wrapper-col="{ span: 14, offset: 4 }">
+      <a-button type="primary" @click="onSubmit">记录</a-button>
+      <a-button style="margin-left: 10px" @click="resetForm">重置</a-button>
+    </a-form-item>
+  </a-form>
 </template>
+<script lang="ts" setup>
+import { Dayjs } from 'dayjs';
+import { reactive, ref, toRaw } from 'vue';
+import type { UnwrapRef } from 'vue';
+import type { Rule } from 'ant-design-vue/es/form';
+import { createConsumptions } from '../request/consumptions'
+import { useRouter } from 'vue-router'
+import { HomeOutlined } from '@ant-design/icons-vue';
+import useDebounce from '../utils/debounce';
+import { showToast } from '../utils/toast'
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue';
-import { Form, Input, Button } from 'ant-design-vue';
+const router = useRouter()
 
-interface Rules {
-    [key: string]: { required: boolean, message: string, trigger: string }[];
+interface FormState {
+  name: string;
+  ff_type: string | undefined;
+  time: Dayjs | undefined;
+  type: string[];
+  fuel_variety: string;
+  content: string;
+  calories: Number;
 }
-
-export default defineComponent({
-    components: {
-        'a-form': Form,
-        'a-form-item': Form.Item,
-        'a-input': Input,
-        'a-button': Button
-    },
-    setup() {
-        const form = ref<any>(null);
-        const itemKey = ref<string>('');
-        const itemName = ref<string>('');
-        const itemType = ref<string>('');
-        const itemTime = ref<string>('');
-        const itemContent = ref<string>('');
-        const itemFuelVariety = ref<string>('');
-        const itemCalories = ref<string>('');
-        const itemRemarks = ref<string>('');
-
-        const handleSubmit = () => {
-            form.value.validateFields().then(() => {
-                console.log('Item submitted:', {
-                    name: itemName.value,
-                    type: itemType.value,
-                    time: itemTime.value,
-                    content: itemContent.value,
-                    fuel_variety: itemFuelVariety.value,
-                    calories: itemCalories.value,
-                    remarks: itemRemarks.value
-                });
-                // 在这里可以将 item 提交到后端或者进行其他操作
-            });
-        };
-
-        const rules: Rules = {
-            name: [{ required: true, message: 'Please enter name', trigger: 'blur' }],
-            type: [{ required: true, message: 'Please enter type', trigger: 'blur' }],
-            time: [{ required: true, message: 'Please enter time', trigger: 'blur' }],
-            content: [{ required: true, message: 'Please enter content', trigger: 'blur' }],
-            fuel_variety: [{ required: true, message: 'Please enter fuel variety', trigger: 'blur' }],
-            calories: [{ required: true, message: 'Please enter calories', trigger: 'blur' }]
-        };
-
-        return {
-            form,
-            itemKey,
-            itemName,
-            itemType,
-            itemTime,
-            itemContent,
-            itemFuelVariety,
-            itemCalories,
-            itemRemarks,
-            handleSubmit,
-            rules
-        };
-    }
+const formRef = ref();
+const labelCol = { span: 5 };
+const wrapperCol = { span: 13 };
+const formState: UnwrapRef<FormState> = reactive({
+  name: '',
+  ff_type: 'sport',
+  time: undefined,
+  type: [],
+  fuel_variety: 'Expenditure',
+  content: '',
+  calories: null
 });
+const rules: Record<string, Rule[]> = {
+  name: [
+    { required: true, message: 'Please input Activity name', trigger: 'change' },
+    { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' },
+  ],
+  ff_type: [{ required: true, message: 'Please select Activity zone', trigger: 'change' }],
+  time: [{ required: true, message: 'Please pick a date', trigger: 'change', type: 'object' }],
+  type: [
+    {
+      type: 'array',
+      required: true,
+      message: 'Please select at least one activity type',
+      trigger: 'change',
+    },
+  ],
+  fuel_variety: [{ required: true, message: 'Please select activity fuel_variety', trigger: 'change' }],
+  content: [{ required: true, message: 'Please input activity form', trigger: 'blur' }],
+  calories: [{ required: true, message: 'Please input calories', trigger: 'blur' }]
+};
+const onSubmit = useDebounce(() => {
+  formRef.value
+    .validate()
+    .then(() => {
+      console.log('values', formState, toRaw(formState));
+      handleCreateLog()
+    })
+    .catch(error => {
+      console.log('error', error);
+    });
+});
+const resetForm = () => {
+  formRef.value.resetFields();
+};
+const handleCreateLog = async () => {
+  try {
+    showToast('创建中...', 'loading', 'add')
+    let { code, msg } = await createConsumptions(toRaw(formState))
+    if (code === '0000') {
+      showToast('创建成功，可以继续创建', 'success', 'add')
+      resetForm()
+    } else {
+      showToast(msg, 'warning', 'add')
+      if (code === '1011') {
+        router.push('/login')
+      }
+      console.log(msg)
+    }
+  } catch (error) {
+    console.log('login err::', error)
+    showToast('创建失败，请稍后再试', 'warning', 'add')
+  }
+}
 
+const backToList = () => {
+  router.push('/list')
+}
 </script>
-
-<style scoped>
-.custom-form {
-    max-width: 400px;
-    margin: 0 auto;
-}
-
-.custom-form .ant-form-item {
-    margin-bottom: 20px;
-}
-
-.custom-form .ant-form-item-label {
-    font-weight: bold;
-}
-
-.custom-form .ant-input {
-    width: 100%;
-}
-
-.custom-form .ant-input-number {
-    width: 100%;
-}
-
-.custom-form .ant-button {
-    width: 100%;
+<style scoped lang="less">
+.back {
+  position: absolute;
+  top: 10%;
+  left: 16%;
 }
 </style>
