@@ -13,4 +13,15 @@ export default defineConfig({
             resolvers: [ElementPlusResolver()],
         }),
     ],
+    server: {
+        port: 8080, // 设置端口号为 3000
+        proxy: {
+            // 代理配置示例
+            '/api': {
+                target: 'http://localhost:3000', // 设置代理目标地址
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/api/, ''),
+            },
+        },
+    }
 });

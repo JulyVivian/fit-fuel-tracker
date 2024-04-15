@@ -2,7 +2,7 @@ export const fuelData = [
   {
     "key": "0",
     "type": "运动",
-    "name": "跑步",
+    "consumption_name": "跑步",
     "time": "2024-04-15 08:00",
     "content": "晨跑，每公里配速6分钟",
     "fuel_variety": "消耗",
@@ -12,7 +12,7 @@ export const fuelData = [
   {
     "key": "1",
     "type": "饮食",
-    "name": "早餐",
+    "consumption_name": "早餐",
     "time": "2024-04-15 08:30",
     "content": "牛奶、面包、鸡蛋、水果沙拉",
     "fuel_variety": "吸收",
@@ -22,7 +22,7 @@ export const fuelData = [
   {
     "key": "2",
     "type": "运动",
-    "name": "瑜伽",
+    "consumption_name": "瑜伽",
     "time": "2024-04-15 12:00",
     "content": "午休时进行20分钟的瑜伽放松身心",
     "fuel_variety": "消耗",
@@ -32,7 +32,7 @@ export const fuelData = [
   {
     "key": "3",
     "type": "饮食",
-    "name": "午餐",
+    "consumption_name": "午餐",
     "time": "2024-04-15 12:30",
     "content": "鸡肉沙拉、米饭、蔬菜汤",
     "fuel_variety": "吸收",
@@ -42,7 +42,7 @@ export const fuelData = [
   {
     "key": "4",
     "type": "运动",
-    "name": "篮球",
+    "consumption_name": "篮球",
     "time": "2024-04-15 18:00",
     "content": "和朋友一起打篮球，1小时",
     "fuel_variety": "消耗",
@@ -52,7 +52,7 @@ export const fuelData = [
   {
     "key": "5",
     "type": "饮食",
-    "name": "晚餐",
+    "consumption_name": "晚餐",
     "time": "2024-04-15 19:00",
     "content": "鱼香茄子、红烧肉、凉拌黄瓜",
     "fuel_variety": "吸收",
@@ -62,7 +62,7 @@ export const fuelData = [
   {
     "key": "6",
     "type": "饮食",
-    "name": "加餐",
+    "consumption_name": "加餐",
     "time": "2024-04-15 21:00",
     "content": "水果拼盘、酸奶",
     "fuel_variety": "吸收",
@@ -72,7 +72,7 @@ export const fuelData = [
   {
     "key": "7",
     "type": "运动",
-    "name": "游泳",
+    "consumption_name": "游泳",
     "time": "2024-04-15 21:30",
     "content": "晚间游泳，放松身心",
     "fuel_variety": "消耗",
@@ -82,7 +82,7 @@ export const fuelData = [
   {
     "key": "8",
     "type": "运动",
-    "name": "散步",
+    "consumption_name": "散步",
     "time": "2024-04-15 22:30",
     "content": "散步30分钟",
     "fuel_variety": "消耗",

@@ -1,5 +1,6 @@
 <template>
-    <h2>我的运动健康记录</h2>
+    <h2>我的运动健康记录<span>退出登录</span></h2>
+    
     <a-table bordered :data-source="dataSource" :columns="columns">
       <template #bodyCell="{ column, text, record }">
         <template v-if="column.dataIndex === 'content'">
@@ -36,7 +37,7 @@
   
   interface DataItem {
     key: string
-    name: string
+    consumption_name: string
     type: String
     time: String
     content: String
