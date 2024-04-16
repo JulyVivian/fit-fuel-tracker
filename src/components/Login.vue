@@ -1,6 +1,6 @@
 <template>
     <div class="login-container">
-      <h1>健康生活，从现在开始！</h1>
+      <h2>健康生活，从现在开始！</h2>
       <LoginForm btnText="登录" @onSubmit="GotoLogin"/>
       <p class="to-reg">没有账号，去<a href="/reg">注册</a></p>
     </div>
