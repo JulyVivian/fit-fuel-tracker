@@ -14,11 +14,11 @@ export default defineConfig({
         }),
     ],
     server: {
-        port: 80, // 设置端口号为 3000
+        port: 8080, // 设置端口号为 3000
         proxy: {
             // 代理配置示例
             '/api': {
-                target: 'http://127.0.0.1:3000', // 设置代理目标地址
+                target: 'http://127.0.0.1', // 设置代理目标地址
                 changeOrigin: true,
                 // rewrite: (path) => path.replace(/^\/api/, ''),
             },
