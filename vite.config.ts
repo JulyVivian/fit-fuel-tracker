@@ -14,7 +14,7 @@ export default defineConfig({
         }),
     ],
     server: {
-        port: 8080, // 设置端口号为 3000
+        port: 80, // 设置端口号为 3000
         proxy: {
             // 代理配置示例
             '/api': {
