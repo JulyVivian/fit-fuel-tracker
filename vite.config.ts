@@ -1,27 +1,27 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
-import Components from 'unplugin-vue-components/vite';
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
+import path from 'path';
 
 export default defineConfig({
-    define: {
-        __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'true'
+  plugins: [vue()],
+  base: './',
+  build: {
+    chunkSizeWarningLimit: 1024 * 1024
+  },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
     },
-    plugins: [
-        vue(),
-        Components({
-            resolvers: [ElementPlusResolver()],
-        }),
-    ],
-    server: {
-        port: 80, // 设置端口号为默认端口
-        proxy: {
-            // 代理配置示例
-            '/api': {
-                target: 'http://127.0.0.1:3000', // 设置代理目标地址
-                changeOrigin: true,
-                // rewrite: (path) => path.replace(/^\/api/, ''),
-            },
-        },
-    }
+  },
+  server: {
+    port: 3000, // 设置端口号为默认端口
+    proxy: {
+      // 代理配置示例
+      '/api': {
+        target: 'http://47.95.168.63', // 设置代理目标地址
+        changeOrigin: true,
+        // rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
+  },
 });

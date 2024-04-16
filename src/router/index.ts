@@ -1,11 +1,17 @@
 // router/index.ts
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import Login from '../components/Login.vue';
-import Reg from '../components/Reg.vue';
-import List from '../components/List.vue';
-import Create from '../components/Create.vue';
+
+const Login = () => import('@/components/Login.vue')
+const Reg = () => import('@/components/Reg.vue')
+const List = () => import('@/components/List.vue')
+const Create = () => import('@/components/Create.vue')
 
 const routes: Array<RouteRecordRaw> = [
+  {
+    path: '/',
+    name: 'Home',
+    component: Login
+  },
   {
     path: '/login',
     name: 'Login',

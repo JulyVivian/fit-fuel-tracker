@@ -8,10 +8,10 @@
   
   <script lang="ts" setup>
   import LoginForm from './Form.vue'
-  import { toLogin } from '../request/auth'
+  import { toLogin } from '@/request/auth'
   import { useRouter } from 'vue-router'
-  import { showToast, hideToast } from '../utils/toast'
-  import useLocalStorage from '../utils/localStorage';
+  import { showToast, hideToast } from '@/utils/toast'
+  import useLocalStorage from '@/utils/localStorage';
 
   const router = useRouter()
   
@@ -41,7 +41,7 @@
   
   </script>
   
-  <style scoped less>
+  <style scoped lang="less">
   .login-container {
     max-width: 400px;
     margin: 0 auto;

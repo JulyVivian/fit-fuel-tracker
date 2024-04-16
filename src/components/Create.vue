@@ -40,11 +40,11 @@ import { Dayjs } from 'dayjs';
 import { reactive, ref, toRaw } from 'vue';
 import type { UnwrapRef } from 'vue';
 import type { Rule } from 'ant-design-vue/es/form';
-import { createConsumptions } from '../request/consumptions'
+import { createConsumptions } from '@/request/consumptions'
 import { useRouter } from 'vue-router'
 import { HomeOutlined } from '@ant-design/icons-vue';
-import useDebounce from '../utils/debounce';
-import { showToast } from '../utils/toast'
+import useDebounce from '@/utils/debounce';
+import { showToast } from '@/utils/toast'
 
 const router = useRouter()
 

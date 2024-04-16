@@ -7,9 +7,9 @@
   
   <script lang="ts" setup>
   import RegisterForm from './Form.vue';
-  import { toReg } from '../request/auth'
+  import { toReg } from '@/request/auth'
   import { useRouter } from 'vue-router'
-  import { showToast, hideToast } from '../utils/toast'
+  import { showToast, hideToast } from '@/utils/toast'
   const router = useRouter()
 
   const GotoReg = async (param: object) => {

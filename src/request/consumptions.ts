@@ -1,5 +1,5 @@
 import axios from './axios.js'
-import useLocalStorage from '../utils/localStorage';
+import useLocalStorage from '@/utils/localStorage';
 
 // 使用自定义 hook 获取 LocalStorage 中的值
 const { storedValue: storedData } = useLocalStorage<string>('token', '');

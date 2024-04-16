@@ -33,10 +33,10 @@
   import type { Ref, UnwrapRef } from 'vue';
   import { CheckOutlined, EditOutlined, PlusCircleOutlined } from '@ant-design/icons-vue';
   import { cloneDeep } from 'lodash-es';
-  import { columns as columnsData } from '../constants/trackerData.js'
+  import { columns as columnsData } from '@/constants/trackerData.js'
   
-  import { toLogout } from '../request/auth'
-  import { updateConsumption, getConsumptions, deleteConsumption } from '../request/consumptions'
+  import { toLogout } from '@/request/auth'
+  import { updateConsumption, getConsumptions, deleteConsumption } from '@/request/consumptions'
   import { useRouter } from 'vue-router'
 
   interface DataItem {
