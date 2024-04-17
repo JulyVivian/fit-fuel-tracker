@@ -2,7 +2,7 @@
     <div class="login-container">
       <h2>健康生活，从现在开始！</h2>
       <LoginForm btnText="登录" @onSubmit="GotoLogin"/>
-      <p class="to-reg">没有账号，去<a href="/reg">注册</a></p>
+      <p class="to-reg">没有账号，去<a-button @click="goToRegPage" type="link">注册</a-button></p>
     </div>
   </template>
   
@@ -38,6 +38,10 @@
       showToast('登录失败，请稍后再试', 'warning', 'log')
     }
   }
+
+  const goToRegPage = () => {
+    router.push('/reg')
+  }
   
   </script>
   
@@ -53,6 +57,10 @@
     .to-reg {
       text-align: right;
       font-size: 12px;
+      button {
+        padding: 0;
+        font-size: 12px;
+      }
     }
     h1 {
       margin-bottom: 20px;

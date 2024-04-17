@@ -19,12 +19,12 @@
     </a-form-item>
     <a-form-item label="热量类型:" name="fuel_variety">
       <a-radio-group v-model:value="formState.fuel_variety">
-        <a-radio value="Expenditure">消耗</a-radio>
-        <a-radio value="Intake">吸收</a-radio>
+        <a-radio value="-1">消耗</a-radio>
+        <a-radio value="1">吸收</a-radio>
       </a-radio-group>
     </a-form-item>
     <a-form-item label="热量值(千卡):" name="calories">
-      <a-input v-model:value="formState.calories"/>
+      <a-input v-model:number="formState.calories" type="number"/>
     </a-form-item>
     <a-form-item label="内容" name="content">
       <a-textarea v-model:value="formState.content" />
@@ -54,7 +54,7 @@ interface FormState {
   time: Dayjs | undefined;
   fuel_variety: string;
   content: string;
-  calories: string;
+  calories: number;
 }
 const formRef = ref();
 const labelCol = { span: 5 };
@@ -63,14 +63,13 @@ const formState: UnwrapRef<FormState> = reactive({
   name: '',
   ff_type: 'sport',
   time: undefined,
-  fuel_variety: 'Expenditure',
+  fuel_variety: '-1',
   content: '',
-  calories: null
+  calories: 0
 });
 const rules: Record<string, Rule[]> = {
   name: [
     { required: true, message: 'Please input Activity name', trigger: 'change' },
-    { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' },
   ],
   ff_type: [{ required: true, message: 'Please select Activity zone', trigger: 'change' }],
   time: [{ required: true, message: 'Please pick a date', trigger: 'change', type: 'object' }],
@@ -84,7 +83,10 @@ const rules: Record<string, Rule[]> = {
   // ],
   fuel_variety: [{ required: true, message: 'Please select activity fuel_variety', trigger: 'change' }],
   content: [{ message: 'Please input activity form', trigger: 'blur' }],
-  calories: [{ required: true, message: 'Please input calories', trigger: 'blur' }]
+  calories: [
+    { required: true, message: 'Please enter the calorie value', trigger: 'blur' },
+    { type: 'number', message: 'Please enter a number', trigger: 'blur' }
+  ]
 };
 const onSubmit = useDebounce(() => {
   formRef.value
