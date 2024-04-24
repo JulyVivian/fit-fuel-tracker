@@ -5,6 +5,7 @@ const Login = () => import('@/components/Login.vue')
 const Reg = () => import('@/components/Reg.vue')
 const List = () => import('@/components/List.vue')
 const Create = () => import('@/components/Create.vue')
+const Deal = () => import('@/components/Deal.vue')
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -31,6 +32,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/create',
     name: 'Create',
     component: Create
+  },
+  {
+    path: '/deal',
+    name: 'Deal',
+    component: Deal
   }
 ];
 
